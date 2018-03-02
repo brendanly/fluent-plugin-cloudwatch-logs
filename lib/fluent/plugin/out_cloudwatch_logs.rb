@@ -149,7 +149,7 @@ module Fluent
           if @message_keys
             message = @message_keys.split(',').map {|k| record[k].to_s }.join(' ')
           else
-            message = record.to_json
+            message = Yajl.dump(record)
           end
 
           if @max_message_length
