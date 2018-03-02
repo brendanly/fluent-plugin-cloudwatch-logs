@@ -264,6 +264,7 @@ module Fluent
             "thread" => Thread.current.object_id,
             "request_sec" => Time.now - t,
           }
+          log.warn response.rejected_log_events_info if response.rejected_log_events_info != nil
         rescue Aws::CloudWatchLogs::Errors::InvalidSequenceTokenException, Aws::CloudWatchLogs::Errors::DataAlreadyAcceptedException => err
           sleep 1 # to avoid too many API calls
           log_stream = find_log_stream(group_name, stream_name)
